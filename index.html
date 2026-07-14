@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab Notebook — Learning in Public</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FAF6EC;
+    --paper-line: #E4DCC8;
+    --ink: #20211C;
+    --ink-soft: #55564C;
+    --teal: #2F6F6B;
+    --amber: #E8A93A;
+    --rust: #C1502E;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background-color: var(--paper);
+    background-image:
+      radial-gradient(circle, var(--paper-line) 1px, transparent 1px);
+    background-size: 22px 22px;
+    color: var(--ink);
+    font-family: 'Source Serif 4', serif;
+    line-height: 1.6;
+  }
+
+  a { color: var(--teal); }
+
+  .wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- Header ---------- */
+  header {
+    padding: 64px 0 40px;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--rust);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: var(--rust);
+    border-radius: 50%;
+    display: inline-block;
+    animation: blink 2.4s infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.25; }
+  }
+
+  h1 {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(2.2rem, 6vw, 3.4rem);
+    font-weight: 700;
+    margin: 14px 0 10px;
+    letter-spacing: -0.02em;
+  }
+
+  header p {
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    max-width: 60ch;
+    margin: 0;
+  }
+
+  /* ---------- Status strip ---------- */
+  .status {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .status span b {
+    color: var(--ink);
+  }
+
+  /* ---------- Log section ---------- */
+  main {
+    padding: 48px 0 80px;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 24px;
+  }
+
+  .entry {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 20px;
+    padding: 24px 0;
+    border-bottom: 1px dashed var(--paper-line);
+  }
+
+  .entry:last-child { border-bottom: none; }
+
+  .entry-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--ink-soft);
+    padding-top: 3px;
+  }
+
+  .entry h3 {
+    margin: 0 0 6px;
+    font-family: 'Space Mono', monospace;
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+
+  .entry p {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+
+  .tag {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: rgba(47,111,107,0.1);
+    color: var(--teal);
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-top: 10px;
+  }
+
+  /* ---------- Next up ---------- */
+  .next-up {
+    margin-top: 56px;
+    border: 2px solid var(--ink);
+    background: #fff;
+    padding: 28px;
+    position: relative;
+  }
+
+  .next-up::before {
+    content: "note to self";
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    background: var(--amber);
+    color: var(--ink);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+  }
+
+  .next-up ul {
+    margin: 8px 0 0;
+    padding-left: 20px;
+  }
+
+  .next-up li {
+    margin-bottom: 6px;
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    border-top: 2px solid var(--ink);
+    padding: 28px 0 60px;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--ink-soft);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  footer a { color: var(--rust); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 520px) {
+    .entry { grid-template-columns: 40px 1fr; }
+    header { padding: 44px 0 32px; }
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--rust);
+    outline-offset: 2px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="wrap">
+    <header>
+      <div class="eyebrow">status: actively experimenting</div>
+      <h1>Learning in Public</h1>
+      <p>This is a small notebook for tracking what I try, break, and figure out while learning to build for the web. No polish promised — just dated entries.</p>
+      <div class="status">
+        <span>Site launched: <b id="launch-date">—</b></span>
+        <span>Days running: <b id="days-running">—</b></span>
+        <span>Entries logged: <b id="entry-count">—</b></span>
+      </div>
+    </header>
+
+    <main>
+      <div class="section-label">// log</div>
+
+      <div id="entries">
+        <div class="entry">
+          <div class="entry-num">01</div>
+          <div>
+            <h3>Shipped the first version</h3>
+            <p>Got a static page live. Plain HTML, CSS, and a bit of JS — no framework yet, just wanted something real to point at.</p>
+            <span class="tag">milestone</span>
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-num">02</div>
+          <div>
+            <h3>Picked free hosting</h3>
+            <p>Went with GitHub Pages: push to a repo, get a live URL, no server to manage. Good enough for now.</p>
+            <span class="tag">infra</span>
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-num">03</div>
+          <div>
+            <h3>Next: add something interactive</h3>
+            <p>Thinking a small tool or a mini game — something that isn't just static text, to force learning some real JS.</p>
+            <span class="tag">in progress</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="next-up">
+        <strong style="font-family:'Space Mono',monospace;">Up next</strong>
+        <ul>
+          <li>Add a real project once something's working</li>
+          <li>Try a small CSS animation</li>
+          <li>Maybe hook up a contact form</li>
+        </ul>
+      </div>
+    </main>
+
+    <footer>
+      <span>Built while learning · edit this freely</span>
+      <a href="https://github.com" target="_blank" rel="noopener">source on GitHub →</a>
+    </footer>
+  </div>
+
+  <script>
+    // Set this to your actual launch date (YYYY-MM-DD)
+    const LAUNCH_DATE = new Date('2026-07-13');
+
+    function formatDate(d) {
+      return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+
+    document.getElementById('launch-date').textContent = formatDate(LAUNCH_DATE);
+
+    const today = new Date();
+    const daysRunning = Math.max(0, Math.floor((today - LAUNCH_DATE) / (1000 * 60 * 60 * 24)));
+    document.getElementById('days-running').textContent = daysRunning;
+
+    document.getElementById('entry-count').textContent =
+      document.querySelectorAll('.entry').length;
+  </script>
+
+</body>
+</html>
